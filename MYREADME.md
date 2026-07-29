@@ -56,9 +56,11 @@ mv yarn.lock.bak yarn.lock
 
 **Run AppImage on Wayland:**
 ```bash
-./build/FreeTube-0.24.0.AppImage --no-sandbox
+./build/FreeTube-<version>.AppImage --no-sandbox
 ```
-`--no-sandbox` is required (same reason as dev mode — chrome-sandbox not SUID).
+`--no-sandbox` is required (same reason as dev mode — chrome-sandbox not SUID). The filename embeds the app version from `package.json` (e.g. `FreeTube-0.25.1.AppImage`), so it changes on every version bump — check `build/` for the current filename.
+
+**GNOME launcher:** `~/.local/share/applications/freetube-dev.desktop` ("FreeTube (dev build)") has an `Exec=` line hardcoded to a specific `build/FreeTube-<version>.AppImage` path. After every rebuild that changes the version, update that path (and run `update-desktop-database ~/.local/share/applications/`) or the launcher will fail with "Program ... not found in $PATH".
 
 **User data locations:**
 - AppImage → `~/.config/FreeTube/`
